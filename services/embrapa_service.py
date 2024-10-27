@@ -1,48 +1,36 @@
-import os
 from bs4 import BeautifulSoup
 import requests
+from core.settings import settings
 
 class Embrapa:
     def __init__(self):
         return
 
-    def findData(self, year, endpoint, endpointType):
+    def find_data(self, year, endpoint):
         try:
-            url = f"{os.getenv("BASE_URL")}?ano={year}&{endpoint}"
-
+            url = f"{settings.BASE_URL}?ano={year}&{endpoint}"
             response = requests.get(url)
             soup = BeautifulSoup(response.text, "html.parser")
-            table = soup.find("table", {'class':'tb_base tb_dados'})
 
-            return self.__formatData(table, endpointType)
-        except error:
+            table = soup.find("table", {'class':'tb_base tb_dados'})
+            headers = [th.get_text(strip=True) for th in table.find("thead").find_all("th")]
+
+            # TODO: alterar retorno.
+            result = self.__group_data(headers, table)
+
+            return result
+        except Exception as error:
             print(error)
             return Exception("Ocorreu um erro ao realizar o request.")
 
-    def __formatData(self, table, endpointType):
-        data = []
 
-        if endpointType == 1:
-            for row in table.find("tbody").find_all("tr"):
-                cells = row.find_all("td")
-                total = len(cells)
-                for i in range(len(cells)):
-                    if i < total - 1:
-                        data.append({f"{cells[i].get_text(strip=True)}": cells[i + 1].get_text(strip=True)})
-        else:
-            for row in table.find("tbody").find_all("tr"):
-                cells = row.find_all("td")
-                total = len(cells)
-                for i in range(len(cells)):
-                    if i < total - 2:
-                        data.append({"country": cells[i].get_text(strip=True),
-                                     "amount": cells[i + 1].get_text(strip=True),
-                                     "value": cells[i + 2].get_text(strip=True)})
-        #
-        # tfoot = table.find("tfoot", class_="tb_total")
-        # if tfoot:
-        #     total_cells = tfoot.find_all("td")
-        #     if len(total_cells) == len(headers):
-        #         total = {headers[i]: total_cells[i].get_text(strip=True) for i in range(len(headers))}
+    def __group_data(self, headers, table):
+        result = []
 
-        return data
+        for row in table.find("tbody").find_all("tr"):
+            cells = row.find_all("td")
+            item = {headers[i]: cells[i].get_text(strip=True) for i in range(len(headers))}
+
+            result.append(item)
+
+        return result
