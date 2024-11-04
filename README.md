@@ -4,20 +4,12 @@
 API created to return data relating to Embrapa winemaking.
 
 ## Dependencies
-FastAPI
+Install all dependencies:
 ```
-pip install "fastapi[standard]"
-```
-Requests
-```
-pip install requests
-```
-BeautifulSoup
-```
-pip install beautifulsoup
+pip install -r requirements.txt
 ```
 
-## Usage
+## Usage (Local)
 Access to clone repository:
 ```
 https://github.com/MariaPim07/embrapa-data-api/tree/master
@@ -89,6 +81,16 @@ Endpoint used to return grape derivatives export data.
 - "subopcao=subopt_03"
 - "subopcao=subopt_04"
 - "subopcao=subopt_05"
+
+# Usage (production)
+You can access api in:
+```
+embrapa-web-scraping-api-tc.vercel.app\
+```
+You can access Swagger in:
+```
+embrapa-web-scraping-api-tc.vercel.app\docs
+```
 
 
 
