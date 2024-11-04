@@ -1,5 +1,4 @@
 from model.commercialization_model import CommercializationModel
-from model.product_model import ProductModel
 from services.embrapa_service import EmbrapaService
 
 class CommercializationService:
@@ -10,7 +9,7 @@ class CommercializationService:
     def get_importation(self, year: str, option: str) -> list[CommercializationModel]:
         commercialization_model_list: list[CommercializationModel] = []
 
-        for commercialization in self.embrapa_service.find_data(year=year, endpoint=f'{option}&opcao=opt_05'):
+        for commercialization in self.embrapa_service.find_data(year=year, endpoint=f'subopcao={str(option)}&opcao=opt_05'):
             commercialization_model_list.append(CommercializationModel(country=commercialization["Países"],
                                                                        amount_KG=commercialization["Quantidade (Kg)"],
                                                                        value_dolar=commercialization["Valor (US$)"]))
@@ -19,7 +18,7 @@ class CommercializationService:
     def get_exportation(self, year: str, option: str) -> list[CommercializationModel]:
         commercialization_model_list: list[CommercializationModel] = []
 
-        for commercialization in self.embrapa_service.find_data(year=year, endpoint=f'{option}&opcao=opt_06'):
+        for commercialization in self.embrapa_service.find_data(year=year, endpoint=f'subopcao={str(option)}&opcao=opt_06'):
             commercialization_model_list.append(CommercializationModel(country=commercialization["Países"],
                                                                        amount_KG=commercialization["Quantidade (Kg)"],
                                                                        value_dolar=commercialization["Valor (US$)"]))
