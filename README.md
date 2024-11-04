@@ -14,7 +14,7 @@ pip install requests
 ```
 BeautifulSoup
 ```
-pip install
+pip install beautifulsoup
 ```
 
 ## Usage
