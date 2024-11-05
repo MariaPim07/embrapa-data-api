@@ -42,7 +42,7 @@ quantity of grapes processed in Rio Grande do Sul.
 
 - /processing?year={year}&option={option}
 - {year}: *string*
-- {option}: *Option (string)*
+- {option}: *"viniferas" | "americanas_e_hibridas" | "uvas_de_mesa" | "sem_classificacao"*
 - **GET**
 
 ### Commercialization
@@ -58,29 +58,26 @@ Endpoint used to return grape derivatives import data.
 
 - /importation?year={year}&option={option}
 - {year}: *string*
-- {option}: *Option (string)*
+- {option}: *"vinhos_de_mesa" | "espumantes" | "uvas_frescas" | "uvas_passa" | "suco_de_uva"*
 - **GET**
 
 ### Exportation
 Endpoint used to return grape derivatives export data.
 
-- /exportation?year={year}&option={option_ex}
+- /exportation?year={year}&option={option}
 - {year}: *string*
-- {option_ex}: *Option_Ex (string)*
+- {option}: *"vinhos_de_mesa" | "espumantes" | "uvas_frescas" | "uvas_passa" | "suco_de_uva"*
 - **GET**
 
-#### Option
-- "subopcao=subopt_01"
-- "subopcao=subopt_02"
-- "subopcao=subopt_03"
-- "subopcao=subopt_04"
-
-#### Option_Ex
-- "subopcao=subopt_01"
-- "subopcao=subopt_02"
-- "subopcao=subopt_03"
-- "subopcao=subopt_04"
-- "subopcao=subopt_05"
+# Production
+You can access api in:
+```
+embrapa-web-scraping-api-tc.vercel.app\
+```
+You can access Swagger in:
+```
+embrapa-web-scraping-api-tc.vercel.app\docs
+```
 
 # Usage (production)
 You can access api in:
